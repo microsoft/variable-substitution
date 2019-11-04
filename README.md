@@ -1,4 +1,39 @@
+# GitHub Action for substituting variables in parameterized files
 
+With the Variable Substitution Action for GitHub, you can apply variable substitution to XML, JSON and YAML based configuration and parameter files.
+
+•	Tokens defined in the target configuration files are updated and then replaced with variable values.
+•	Variable substitution is applied for only the JSON keys predefined in the object hierarchy. It does not create new keys.
+•	Only variables defined explicitly as Environment variables as part of the workflow or system variables that are already available for workflow context can be used in substitution. 
+
+If you are looking for more Github Actions to deploy code or a customized image into an Azure Webapp or a Kubernetes service, consider using [Azure Actions](https://github.com/Azure/actions).
+
+The definition of this Github Action is in [action.yml](https://github.com/microsoft/variable-substitution/blob/master/action.yml).
+
+# End-to-End Sample Workflow
+
+## Sample workflow to apply Variable substitution on XML, JSON, YML files
+
+```yaml
+# .github/workflows/var-substitution.yml
+on: [push]
+name: variable substitution in json, xml, and yml files
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: microsoft/variable-substitution@v1 
+      with:
+        files: | 
+            ./abc.yml       
+            ./def.json       
+            ./ghi.xml
+      env:
+        VARIABLE: someValue
+        SECRET: ${{ secrets.SOME_SECRET }}
+
+ ```
 # Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
