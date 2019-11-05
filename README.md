@@ -25,12 +25,10 @@ jobs:
     steps:
     - uses: microsoft/variable-substitution@v1 
       with:
-        files: | 
-            ./abc.yml       
-            ./def.json       
-            ./ghi.xml
+        files: 'Application/*.json, Application/*.yaml, ./Application/SampleWebApplication/We*.config'
       env:
-        VARIABLE: someValue
+        Var1: "value1"
+        Var2.key1: "value2"
         SECRET: ${{ secrets.SOME_SECRET }}
 
  ```
