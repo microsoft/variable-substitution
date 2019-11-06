@@ -1,6 +1,6 @@
 # action.yml
 name: 'Variable Substitution'
-description: 'Apply Variable sustitution in XML/JSON or YAML files'
+description: 'Apply Variable substitution in XML, JSON or YAML files'
 inputs: 
   files:
     description: 'comma separated list of XML/JSON/YAML files in which tokens are to be substituted. Files names must be specified relative to the folder-path.'
