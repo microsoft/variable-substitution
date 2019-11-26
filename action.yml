@@ -1,6 +1,6 @@
 # action.yml
 name: 'Variable Substitution'
-description: 'Apply Variable substitution in XML,JSON or YAML files. [Examples](https://aka.ms/ActionSamples)'
+description: 'Apply Variable substitution in XML,JSON or YAML files. Github.com/Azure/Actions'
 inputs: 
   files:
     description: 'comma separated list of XML/JSON/YAML files in which tokens are to be substituted. Files names must be specified relative to the folder-path.'
