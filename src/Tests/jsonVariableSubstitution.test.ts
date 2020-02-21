@@ -14,7 +14,7 @@ describe('Test JSON Variable Substitution', () => {
         let stub = sinon.stub(EnvTreeUtility, "getEnvVarTree").callsFake(() => {
             let envVariables = new Map([
                 [ 'system.debug', 'true'],
-                //[ 'data.ConnectionString', 'database_connection'],
+                [ 'data.ConnectionString', 'database_connection'],
                 [ 'data.userName', 'db_admin'],
                 [ 'data.password', 'db_pass'],
                 [ '&pl.ch@r@cter.k^y', '*.config'],
