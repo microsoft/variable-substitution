@@ -1,6 +1,6 @@
 # GitHub Action for substituting variables in parameterized files
 
-With the Variable Substitution Action for GitHub, you can apply variable substitution to XML, JSON and YAML based configuration and parameter files.
+With the Variable Substitution Action for GitHub, you can apply variable substitution to XML, JSON and YAML based configuration and parameter files
 
 -	Tokens defined in the target configuration files are updated and then replaced with variable values.
 -	Variable substitution is applied for only the JSON keys predefined in the object hierarchy. It does not create new keys.
