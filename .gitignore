@@ -136,6 +136,10 @@ _TeamCity*
 *.coverage
 *.coveragexml
 
+# nyc coverage file
+.nyc_output/*
+coverage/*
+
 # NCrunch
 _NCrunch_*
 .*crunch*.local.xml
