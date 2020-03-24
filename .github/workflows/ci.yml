@@ -59,9 +59,9 @@ jobs:
           $count++
         }
 
-        $tbl_md = $coverage_result[($start_index+1)..($end_index-1)] -join [environment]::NewLine
-        $summary = $coverage_result[($end_index + 1)..$count] -join [environment]::newline
-        $comment = $tbl_md + "`n" + $summary
+        $tbl_md = $coverage_result[($start_index+1)..($end_index-1)] -join "\n"
+        $summary = $coverage_result[($end_index + 1)..$count] -join "\n"
+        $comment = $tbl_md + "\n" + $summary
 
         $url = "https://api.github.com/repos/$GITHUB_REPOSITORY/issues/$PR_NUMBER/comments"
         $headers = @{
