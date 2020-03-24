@@ -25,7 +25,7 @@ jobs:
         npm run test
 
     - name : 'Run test coverage'
-      if: runnwe.os == 'Windows'
+      if: runner.os == 'Windows'
       env:
         PR_NUMBER: ${{ github.event.pull_request.number }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
