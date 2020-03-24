@@ -67,4 +67,4 @@ jobs:
         $headers = @{
           'Authorization' = 'token $GITHUB_TOKEN'
         }
-        Invoke-RestMethod -Method 'POST' -Uri $url -Headers $headers -Body $comment        
+        Invoke-RestMethod -Method POST -Uri $url -Headers $headers -Body "{ `"body`": `"${comment}`" }"
