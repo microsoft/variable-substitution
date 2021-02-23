@@ -5,12 +5,14 @@ import { EnvTreeUtility } from "./envVariableUtility";
 export class JsonSubstitution {
     constructor() {
         this.envTreeUtil = new EnvTreeUtility();
+        this.splitChar = core.getInput("splitChar") || '.';
     }
     
     substituteJsonVariable(jsonObject, envObject) {
+
         let isValueChanged: boolean = false;
         for(let jsonChild in jsonObject) {
-            let jsonChildArray = jsonChild.split('.');
+            let jsonChildArray = jsonChild.split(this.splitChar);
             let resultNode = this.envTreeUtil.checkEnvTreePath(jsonChildArray, 0, jsonChildArray.length, envObject);
             if(resultNode != undefined) {
                 if(resultNode.isEnd) {
@@ -51,4 +53,5 @@ export class JsonSubstitution {
     }
 
     private envTreeUtil: EnvTreeUtility;
+    private splitChar: string;
 }

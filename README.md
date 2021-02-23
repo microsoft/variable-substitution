@@ -32,6 +32,27 @@ jobs:
         SECRET: ${{ secrets.SOME_SECRET }}
 
  ```
+Define `splitChar` to change the character used to split the environment variable names for variable identification and substitution
+ ```yaml
+# .github/workflows/var-substitution.yml
+on: [push]
+name: variable substitution in json, xml, and yml files
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: microsoft/variable-substitution@v1 
+      with:
+        files: 'Application/*.json, Application/*.yaml, ./Application/SampleWebApplication/We*.config'
+        splitChar: '__'
+      env:
+        Var1: "value1"
+        Var2__key1: "value2"
+        Var3__key1__key2: "value3"
+        SECRET: ${{ secrets.SOME_SECRET }}
+
+ ```
 # Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
