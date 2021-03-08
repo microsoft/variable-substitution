@@ -13,7 +13,7 @@ export function getVariableMap() {
     let variables = process.env;
     Object.keys(variables).forEach(key => {
         if(!isPredefinedVariable(key)) {
-            variableMap.set(key, variables[key]);
+            variableMap.set(key.toUpperCase(), variables[key]);
         }
     });
     return variableMap;
@@ -83,10 +83,12 @@ export class EnvTreeUtility {
         if(index == jsonObjectKeyLength) {
             return envVarTree;
         }
-        if(envVarTree.child[ jsonObjectKey[index] ] === undefined || typeof envVarTree.child[ jsonObjectKey[index] ] === 'function') {
+
+        const jsonObjectKeyChild = envVarTree.child[ jsonObjectKey[index].toUpperCase() ];
+        if(jsonObjectKeyChild === undefined || typeof jsonObjectKeyChild === 'function') {
             return undefined;
        }
-        return this.checkEnvTreePath(jsonObjectKey, index + 1, jsonObjectKeyLength, envVarTree.child[ jsonObjectKey[index] ]);
+        return this.checkEnvTreePath(jsonObjectKey, ++index, jsonObjectKeyLength, jsonObjectKeyChild);
     }
 
     private envVarTree: varTreeNode = null;

@@ -43,14 +43,15 @@ describe('Test JSON Variable Substitution with period', () => {
                     let envVariableNameArray = key.split(splitChar);
                     
                     for(let variableName of envVariableNameArray) {
-                        if(envVarTreeIterator.child[variableName] === undefined || typeof envVarTreeIterator.child[variableName] === 'function') {
-                            envVarTreeIterator.child[variableName] = {
+                        const jsonObjectKeyChild = envVarTreeIterator.child[variableName.toUpperCase()];
+                        if(jsonObjectKeyChild === undefined || typeof jsonObjectKeyChild === 'function') {
+                            envVarTreeIterator.child[variableName.toUpperCase()] = {
                                 value: null,
                                 isEnd: false,
                                 child: {}
                             };
                         }
-                        envVarTreeIterator = envVarTreeIterator.child[variableName];
+                        envVarTreeIterator = envVarTreeIterator.child[variableName.toUpperCase()];
                     }
                     envVarTreeIterator.isEnd = true;
                     envVarTreeIterator.value = value;
@@ -116,10 +117,6 @@ describe('Test JSON Variable Substitution with period', () => {
 
     it("Validate special variables", () => {
         expect(jsonObject['&pl']['ch@r@cter.k^y']).to.equal('*.config');
-    });
-
-    it("Validate case sensitive variables", () => {
-        expect(jsonObject['User.Profile']).to.equal('do_not_replace');
     });
 
     it("Validate inbuilt JSON attributes substitution", () => {
@@ -187,14 +184,15 @@ describe('Test JSON Variable Substition with underscores', () => {
                     let envVariableNameArray = key.split(splitChar);
                     
                     for(let variableName of envVariableNameArray) {
-                        if(envVarTreeIterator.child[variableName] === undefined || typeof envVarTreeIterator.child[variableName] === 'function') {
-                            envVarTreeIterator.child[variableName] = {
+                        const jsonObjectKeyChild = envVarTreeIterator.child[variableName.toUpperCase()];
+                        if(jsonObjectKeyChild === undefined || typeof jsonObjectKeyChild === 'function') {
+                            envVarTreeIterator.child[variableName.toUpperCase()] = {
                                 value: null,
                                 isEnd: false,
                                 child: {}
                             };
                         }
-                        envVarTreeIterator = envVarTreeIterator.child[variableName];
+                        envVarTreeIterator = envVarTreeIterator.child[variableName.toUpperCase()];
                     }
                     envVarTreeIterator.isEnd = true;
                     envVarTreeIterator.value = value;
@@ -260,10 +258,6 @@ describe('Test JSON Variable Substition with underscores', () => {
 
     it("Validate special variables", () => {
         expect(jsonObject['&pl']['ch@r@cter.k^y']).to.equal('*.config');
-    });
-
-    it("Validate case sensitive variables", () => {
-        expect(jsonObject['User.Profile']).to.equal('do_not_replace');
     });
 
     it("Validate inbuilt JSON attributes substitution", () => {

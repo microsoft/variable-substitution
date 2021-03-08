@@ -23,7 +23,7 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-    - uses: microsoft/variable-substitution@v1 
+    - uses: microsoft/variable-substitution@latest
       with:
         files: 'Application/*.json, Application/*.yaml, ./Application/SampleWebApplication/We*.config'
       env:
@@ -42,7 +42,7 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-    - uses: microsoft/variable-substitution@v1 
+    - uses: microsoft/variable-substitution@latest
       with:
         files: 'Application/*.json, Application/*.yaml, ./Application/SampleWebApplication/We*.config'
         splitChar: '__'
