@@ -12,17 +12,18 @@ import fileEncoding = require('./operations/fileEncodingUtility');
 
 export class VariableSubstitution {
     async run() {
+        let splitChar = core.getInput("splitChar") || ".";
         let filesInput = core.getInput("files", { required: true });
         let files = filesInput.split(",");
         if(files.length > 0){
-            this.segregateFilesAndSubstitute(files);
+            this.segregateFilesAndSubstitute(files, splitChar);
         }
         else {
             throw Error('File Tranformation is not enabled. Please provide JSON/XML or YAML target files for variable substitution.');
         }
     }
     
-    segregateFilesAndSubstitute(files: string[]) {
+    segregateFilesAndSubstitute(files: string[], splitChar: string = '.') {
         let isSubstitutionApplied: boolean = false;
         for(let file of files){
             let matchedFiles = findfiles(file.trim());
@@ -41,7 +42,7 @@ export class VariableSubstitution {
                     console.log("Applying variable substitution on JSON file: " + file);
                     let jsonSubsitution =  new JsonSubstitution();
                     let jsonObject = this.fileContentCache.get(file);
-                    let isJsonSubstitutionApplied = jsonSubsitution.substituteJsonVariable(jsonObject, EnvTreeUtility.getEnvVarTree());
+                    let isJsonSubstitutionApplied = jsonSubsitution.substituteJsonVariable(jsonObject, EnvTreeUtility.getEnvVarTree(splitChar));
                     if(isJsonSubstitutionApplied) {
                         fs.writeFileSync(file, (fileEncodeType.withBOM ? '\uFEFF' : '') + JSON.stringify(jsonObject, null, 4), { encoding: fileEncodeType.encoding });
                         console.log(`Successfully updated file: ${file}`);
@@ -76,7 +77,7 @@ export class VariableSubstitution {
                     console.log("Applying variable substitution on YAML file: " + file);
                     let jsonSubsitution =  new JsonSubstitution();
                     let yamlObject = this.fileContentCache.get(file);
-                    let isYamlSubstitutionApplied = jsonSubsitution.substituteJsonVariable(yamlObject, EnvTreeUtility.getEnvVarTree());
+                    let isYamlSubstitutionApplied = jsonSubsitution.substituteJsonVariable(yamlObject, EnvTreeUtility.getEnvVarTree(splitChar));
                     if(isYamlSubstitutionApplied) {
                         fs.writeFileSync(file, (fileEncodeType.withBOM ? '\uFEFF' : '') + yaml.safeDump(yamlObject), { encoding: fileEncodeType.encoding });
                         console.log(`Successfully updated config file: ${file}`);
