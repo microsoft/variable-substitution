@@ -24,6 +24,7 @@
   "homepage": "https://github.com/SumiranAgg/filetransform#readme",
   "devDependencies": {
     "@types/chai": "^4.2.4",
+    "@types/minimatch": "^3.0.3",
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.11.6",
     "chai": "^4.2.0",
@@ -35,7 +36,6 @@
   },
   "dependencies": {
     "@actions/core": "^1.2.6",
-    "@types/minimatch": "^3.0.3",
     "js-yaml": "^3.13.1",
     "ltx": "^2.9.2",
     "minimatch": "^3.0.4"
