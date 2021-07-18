@@ -13,7 +13,7 @@ export function getVariableMap() {
     let variables = process.env;
     Object.keys(variables).forEach(key => {
         if(!isPredefinedVariable(key)) {
-            variableMap.set(key, variables[key]);
+            variableMap.set(key.toUpperCase(), variables[key]);
         }
     });
     return variableMap;
@@ -40,16 +40,16 @@ interface varTreeNode {
 
 export class EnvTreeUtility {
 
-    public static getEnvVarTree() {
+    public static getEnvVarTree(splitChar: string) {
         let util = new EnvTreeUtility();
         if(!util.envVarTree) {
-            util.envVarTree = util.createEnvTree(getVariableMap());
+            util.envVarTree = util.createEnvTree(getVariableMap(), splitChar);
         }
 
         return util.envVarTree;
     }
 
-    private createEnvTree(envVariables): varTreeNode {
+    private createEnvTree(envVariables, splitChar: string): varTreeNode {
         // __proto__ is marked as null, so that custom object can be assgined.
         // This replacement do not affect the JSON object, as no inbuilt JSON function is referenced.
         let envVarTree: varTreeNode = {
@@ -61,7 +61,7 @@ export class EnvTreeUtility {
         };
         for(let [key, value] of envVariables.entries()) {
             let envVarTreeIterator = envVarTree;
-            let envVariableNameArray = key.split('.');
+            let envVariableNameArray = key.split(splitChar);
             
             for(let variableName of envVariableNameArray) {
                 if(envVarTreeIterator.child[variableName] === undefined || typeof envVarTreeIterator.child[variableName] === 'function') {
@@ -83,10 +83,12 @@ export class EnvTreeUtility {
         if(index == jsonObjectKeyLength) {
             return envVarTree;
         }
-        if(envVarTree.child[ jsonObjectKey[index] ] === undefined || typeof envVarTree.child[ jsonObjectKey[index] ] === 'function') {
+
+        const jsonObjectKeyChild = envVarTree.child[ jsonObjectKey[index].toUpperCase() ];
+        if(jsonObjectKeyChild === undefined || typeof jsonObjectKeyChild === 'function') {
             return undefined;
        }
-        return this.checkEnvTreePath(jsonObjectKey, index + 1, jsonObjectKeyLength, envVarTree.child[ jsonObjectKey[index] ]);
+        return this.checkEnvTreePath(jsonObjectKey, ++index, jsonObjectKeyLength, jsonObjectKeyChild);
     }
 
     private envVarTree: varTreeNode = null;

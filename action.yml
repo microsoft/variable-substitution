@@ -5,6 +5,10 @@ inputs:
   files:
     description: 'comma separated list of XML/JSON/YAML files in which tokens are to be substituted. Files names must be specified relative to the folder-path.'
     required: true
+  splitChar:
+    description: 'The character within the environment variables used to split the name for variable location.  This defaults to `.`'
+    require: false
+    default: '.'
 runs:
   using: 'node12'
   main: 'lib/variableSubstitution.js'
