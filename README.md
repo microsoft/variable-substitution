@@ -23,6 +23,8 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
+    - uses: actions/checkout@v2
+
     - uses: microsoft/variable-substitution@v1 
       with:
         files: 'Application/*.json, Application/*.yaml, ./Application/SampleWebApplication/We*.config'
