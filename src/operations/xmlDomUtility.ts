@@ -13,8 +13,14 @@ export class XmlDomUtility  {
         this.xmlDom = ltx.parse(xmlContent);
         this.readHeader(xmlContent);
         this.buildLookUpTable(this.xmlDom);
+        this.printerrormessage();
     }
-
+    public printerrormessage(){
+        console.log('****printing');
+        console.log(this.xmlDom);
+        console.log(this.headerContent);
+        console.log(this.xmlDomLookUpTable);
+    }
     public getXmlDom() {
         return this.xmlDom;
     }

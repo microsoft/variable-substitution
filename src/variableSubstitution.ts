@@ -37,7 +37,11 @@ export class VariableSubstitution {
                 if(fileEncodeType.withBOM) {
                     fileContent = fileContent.slice(1);
                 }
-                if(this.isJson(file, fileContent)) {
+                let fileExt = file.split('.')[1];
+//                 this.isJson(file, fileContent)
+//                 this.isYaml(file, fileContent)
+//                 this.isXml(file, fileContent
+                if(fileExt == 'json') {
                     console.log("Applying variable substitution on JSON file: " + file);
                     let jsonSubsitution =  new JsonSubstitution();
                     let jsonObject = this.fileContentCache.get(file);
@@ -51,28 +55,44 @@ export class VariableSubstitution {
                     }
                     isSubstitutionApplied = isJsonSubstitutionApplied || isSubstitutionApplied;
                 }
-                else if(this.isXml(file, fileContent)) {
-                    console.log("Applying variable substitution on XML file: " + file);   
+                else if(fileExt == 'xml') {
+                    console.log("Applying variable substitution on XML file: " + file);  
+                    try{
+                        let ltxDomUtiltiyInstance = new XmlDomUtility(fileContent);
+                        if(!this.fileContentCache.has(file)) {
+                            this.fileContentCache.set(file, ltxDomUtiltiyInstance);
+                        }
+                    }
+                    catch(exception) {
+                        this.parseException += "XML parse error: " + exception;
+                    }
+                    console.log('debug1'); 
                     let xmlDomUtilityInstance: XmlDomUtility = this.fileContentCache.get(file);
                     let xmlSubstitution = new XmlSubstitution(xmlDomUtilityInstance);
                     let isXmlSubstitutionApplied = xmlSubstitution.substituteXmlVariables();
+                    console.log('debug2'); 
                     if(isXmlSubstitutionApplied) {
                         let xmlDocument = xmlDomUtilityInstance.getXmlDom();
                         this.replaceEscapeXMLCharacters(xmlDocument);
+                        console.log('debug3'); 
                         let domContent = ( fileEncodeType.withBOM? '\uFEFF' : '' ) + xmlDomUtilityInstance.getContentWithHeader(xmlDocument);
+                        console.log('debug4'); 
                         for(let replacableTokenValue in xmlSubstitution.replacableTokenValues) {
                             core.debug('Substituting original value in place of temp_name: ' + replacableTokenValue);
                             domContent = domContent.split(replacableTokenValue).join(xmlSubstitution.replacableTokenValues[replacableTokenValue]);
                         }
+                        console.log('debug5'); 
                         fs.writeFileSync(file, domContent, { encoding: fileEncodeType.encoding });
                         console.log(`Successfully updated file: ${file}`);
                     }
                     else {
+                        console.log('debug6'); 
                         console.log('Skipped updating file: ' + file);
                     }
                     isSubstitutionApplied = isXmlSubstitutionApplied || isSubstitutionApplied;
+                    console.log('debug7'); 
                 }                
-                else if(this.isYaml(file, fileContent)) {
+                else if(fileExt == 'yml' || fileExt == 'yaml') {
                     console.log("Applying variable substitution on YAML file: " + file);
                     let jsonSubsitution =  new JsonSubstitution();
                     let yamlObject = this.fileContentCache.get(file);
