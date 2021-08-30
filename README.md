@@ -10,6 +10,9 @@ If you are looking for more Github Actions to deploy code or a customized image 
 
 The definition of this Github Action is in [action.yml](https://github.com/microsoft/variable-substitution/blob/master/action.yml).
 
+### Example
+See [Use variable substitution with GitHub Actions](https://docs.microsoft.com/en-us/azure/developer/github/github-variable-substitution) for an example of how to use variable substitution.
+
 # End-to-End Sample Workflow
 
 ## Sample workflow to apply Variable substitution on XML, JSON, YML files
