@@ -4,7 +4,8 @@ With the Variable Substitution Action for GitHub, you can apply variable substit
 
 -	Tokens defined in the target configuration files are updated and then replaced with variable values.
 -	Variable substitution is applied for only the JSON keys predefined in the object hierarchy. It does not create new keys.
--	Only variables defined explicitly as Environment variables as part of the workflow or system variables that are already available for workflow context can be used in substitution. 
+-	Only variables defined explicitly as Environment variables as part of the workflow or system variables that are already available for workflow context can be used in substitution.
+-	Variable substitution takes effect only on the `applicationSettings`, `appSettings`, `connectionStrings` and `configSections` elements of configuration files. Please refer [this](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/transforms-variable-substitution?view=azure-devops&tabs=Classic#xml-variable-substitution) for more information. 
 
 If you are looking for more Github Actions to deploy code or a customized image into an Azure Webapp or a Kubernetes service, consider using [Azure Actions](https://github.com/Azure/actions).
 
