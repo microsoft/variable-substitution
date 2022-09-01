@@ -1,3 +1,7 @@
+# Deprecation notice
+
+This Action is deprecated. The action keeps working even after archiving this repo. So __existing workflows are not impacted and new workflows also work fine__. Any further investments are not considered for this action.
+
 # GitHub Action for substituting variables in parameterized files ![.github/workflows/ci.yml](https://github.com/microsoft/variable-substitution/workflows/.github/workflows/ci.yml/badge.svg?branch=master)
 
 With the Variable Substitution Action for GitHub, you can apply variable substitution to XML, JSON and YAML based configuration and parameter files.
