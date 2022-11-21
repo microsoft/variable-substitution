@@ -6,5 +6,5 @@ inputs:
     description: 'comma separated list of XML/JSON/YAML files in which tokens are to be substituted. Files names must be specified relative to the folder-path.'
     required: true
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'lib/variableSubstitution.js'
